@@ -1,0 +1,40 @@
+{
+  "name": "employee-management-system",
+  "version": "0.1.0",
+  "description": "A simple command line based employee management system designed to work with the Employee Management System's MySQL database.",
+  "main": "app.js",
+  "scripts": {
+    "createDB": "node createDB",
+    "prepopulate": "node prepopulate",
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidsaulrodriguez/employee-management-system.git"
+  },
+  "keywords": [
+    "ems",
+    "employee",
+    "management",
+    "tracker",
+    "express",
+    "nodejs",
+    "mysql",
+    "sql"
+  ],
+  "author": "David Rodriguez",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/davidsaulrodriguez/employee-management-system/issues"
+  },
+  "homepage": "https://github.com/davidsaulrodriguez/employee-management-system#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "dotenv": "^8.2.0",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "mysql-import": "^5.0.20"
+  }
+}
