@@ -1,5 +1,5 @@
 /**
- * TODO: Write the code needed to automatically create the database and tables required for this application. 
+ * * This will automatically create the 'ems_db' database with the schema required for use by this application. 
  */
 
 const dotenv = require('dotenv').config();
