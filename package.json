@@ -1,6 +1,6 @@
 {
   "name": "employee-management-system",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A simple command line based employee management system designed to work with the Employee Management System's MySQL database.",
   "main": "app.js",
   "scripts": {
