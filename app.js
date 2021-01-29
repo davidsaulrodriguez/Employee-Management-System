@@ -1,6 +1,6 @@
 /**
  * * App Name: Employee Management System (https://github.com/davidsaulrodriguez/employee-management-system)
- * * Copyright: Copyright (c) 2020 Employee Management System authors (https://github.com/davidsaulrodriguez/employee-management-system/graphs/master)
+ * * Copyright: Copyright (c) 2021 Employee Management System authors (https://github.com/davidsaulrodriguez/employee-management-system/graphs/master)
  * * Licensed under BSD 2 Clause (https://github.com/davidsaulrodriguez/employee-management-system/blob/master/LICENSE)
  */
 require('dotenv').config();
