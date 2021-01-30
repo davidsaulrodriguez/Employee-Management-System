@@ -19,7 +19,7 @@ Git workflow
 
 The different types of branches we may use are:
 
-* `master`
+* `main`
 	* production releases
 		
 * `develop`
@@ -29,10 +29,10 @@ The different types of branches we may use are:
 	* for finalizing a major/minor release, branched from `develop`
 		
 * Hotfix branches (`hotfix-*`)
-	* for applying patches, branched from master (or support-* for older releases)
+	* for applying patches, branched from main (or support-* for older releases)
 		
 * Support branches (`support-*`)
-	* for applying patches to old release versions, branched from `master`
+	* for applying patches to old release versions, branched from `main`
 		
 * Feature branches (`feature-*`)
 	* for developing features or wild speculation, branched from `develop`
@@ -58,7 +58,7 @@ Created for feature development that may require several or more commits to prod
 
 Release branches
 ----------------
-Release branches are created when the `develop` branch is at a stable point and release specific changes need to be made, such as bumping version numbers, etc. At that point, `develop` should be branched and the changes made before ultimately merging it into `master` and tagging the release. There should only be one active release branch at a time. Until the current release is wrapped up, merged into `master` and deleted, development of the next release should take place on `develop`. When `develop` reaches another state of stability for release, another release branch is be created.
+Release branches are created when the `develop` branch is at a stable point and release specific changes need to be made, such as bumping version numbers, etc. At that point, `develop` should be branched and the changes made before ultimately merging it into `main` and tagging the release. There should only be one active release branch at a time. Until the current release is wrapped up, merged into `main` and deleted, development of the next release should take place on `develop`. When `develop` reaches another state of stability for release, another release branch is be created.
 
 **May branch off from**: `develop`
 	
@@ -68,16 +68,16 @@ Release branches are created when the `develop` branch is at a stable point and 
 	
 Bug fixes made on a release branch may be merged back into `develop` continuously if needed, though ultimately they will be merged in when the release is finalized.
 
-**Must merge back into**: `develop` and `master`
+**Must merge back into**: `develop` and `main`
 	
-	$ git checkout master
+	$ git checkout main
 	$ git merge --no-ff release-1.2
 	$ git tag 1.2
 	
 	$ git checkout develop
 	$ git merge --no-ff release-1.2
 
-At this point the release branch is safe to delete, since the changes are reflected in `develop` and `master`. If the branch is remote, [remove the remote branch](http://github.com/guides/remove-a-remote-branch) also.
+At this point the release branch is safe to delete, since the changes are reflected in `develop` and `main`. If the branch is remote, [remove the remote branch](http://github.com/guides/remove-a-remote-branch) also.
 	$ git branch -d release-1.2
 	
 Hotfix branches
