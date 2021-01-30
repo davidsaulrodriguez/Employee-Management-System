@@ -15,7 +15,7 @@ Below is a list of the currently supported versions of this software. You can vi
 | :heavy_check_mark: | Current | The lastest release that is being actively supported. Reported bugs and security issues are fixed and regular point releases are made. |
 | :purple_heart: | Active LTS | A Long Term Support release that is stable and guarenteed to not have any breaking changes. Reported bugs and security issues are fixed and regular patch releases are made for 6 months. |
 | :wrench: |  Maintenance LTS | A Long Term Support release that is stable and guarenteed to not have any breaking changes. Only critical bug and security fixes will be patched for a total of 12 months after an Active LTS is moved to this status. |
-| :construction: | Pending | A release that is currently under active development. This release can be found under the `develop` branch and is to be considered to be unstable. |
+| :construction: | Pending | A release that is currently under active development. This release can be found under the `develop` branch and is considered to be unstable. |
 | :x: | End of Life | A release that is no longer supported. Users of this release should upgrade as soon as possible, as they may be exposed to unpatched security vulnerabilities. |
 
 ---
