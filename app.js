@@ -22,3 +22,134 @@ const db = mysql.createConnection({
 let employeeRoles = [];
 let employeeList = [];
 let managerList = [];
+
+// connect to the database
+db.connect((err) => {
+  if (err) throw err;
+  console.log(`
+    ███████╗███╗   ███╗███████╗
+    ██╔════╝████╗ ████║██╔════╝
+    █████╗  ██╔████╔██║███████╗
+    ██╔══╝  ██║╚██╔╝██║╚════██║
+    ███████╗██║ ╚═╝ ██║███████║
+    ╚══════╝╚═╝     ╚═╝╚══════╝
+    Employee Management System
+       version: development
+
+Copyright © 2021 David Saul Rodriguez
+    Copyright © 2021 bsdadm.com
+       License: BSD-2-Clause
+    Author: David Saul Rodriguez
+  `);
+  init(); // Starts the menu prompt
+})
+
+const runPrompt = () => {
+  inquirer
+    .prompt(initQuestions)
+    .then(answers => {
+      switch (answers.choices) {
+        case 'View Employees':
+          viewEmployees();
+          break;
+        
+        case 'View Departments':
+          viewDepartments();
+          break;
+
+        case 'View Roles':
+          viewRoles();
+          break;
+
+        case 'Add Employee':
+          addEmployee();
+          break;
+
+        case 'Add Department':
+          addDepartment();
+          break;
+        
+        case 'Add Roles':
+          addRole();
+          break;
+
+        case 'Update Employee Roles':
+          updateEmployeeRole();
+          break;
+
+        case 'Quit':
+          delete answers.choices;
+          quit(answers);
+          break;
+      }
+    })
+    .catch(err => {
+      if (err) throw err;
+    })
+}
+
+const viewEmployees = () => {
+  // Magic goes here!
+  console.log('View Employees option was chosen.');
+  runPrompt();
+}
+
+const viewDepartments = () => {
+  // Magic goes here!
+  console.log('View Departments option was chosen.');
+  runPrompt();
+}
+
+const viewRoles = () => {
+  // Magic goes here!
+  console.log('View Roles option was chosen.');
+  runPrompt();
+}
+
+
+const addEmployee = () => {
+  // Magic goes here!
+  console.log('Add Employee option was chosen.');
+  runPrompt();
+}
+
+const addDepartment = () => {
+  // Magic goes here!
+  console.log('Add Department option was chosen.');
+  runPrompt();
+}
+
+const addRole = () => {
+  // Magic goes here!
+  console.log('Add Role option was chosen.');
+  runPrompt();
+}
+
+const updateEmployeeRole = () => {
+  // Magic goes here!
+  console.log('Update Employee Role option was chosen.');
+  runPrompt();
+}
+
+// Check to see if the user truly wants to quit the app
+const quit = (params) => {
+  let answer = params;
+  if (answer.quit === false) {
+    return runPrompt();
+  } else {
+    db.end();
+    console.log(`
+   ██████╗  ██████╗  ██████╗ ██████╗     ██████╗ ██╗   ██╗███████╗██╗
+  ██╔════╝ ██╔═══██╗██╔═══██╗██╔══██╗    ██╔══██╗╚██╗ ██╔╝██╔════╝██║
+  ██║  ███╗██║   ██║██║   ██║██║  ██║    ██████╔╝ ╚████╔╝ █████╗  ██║
+  ██║   ██║██║   ██║██║   ██║██║  ██║    ██╔══██╗  ╚██╔╝  ██╔══╝  ╚═╝
+  ╚██████╔╝╚██████╔╝╚██████╔╝██████╔╝    ██████╔╝   ██║   ███████╗██╗
+   ╚═════╝  ╚═════╝  ╚═════╝ ╚═════╝     ╚═════╝    ╚═╝   ╚══════╝╚═╝
+   `);
+  }
+}
+
+// Start the menu prompt
+const init = () => {
+  runPrompt();
+}
