@@ -105,9 +105,11 @@ Below is a list of the currently supported versions of this software.
 
 | Release | Status            | Initial Release | Active LTS Start | Maintenance LTS Start | End of Life |
 | :-----: | :----------------: | :-------------: | :------------------: | :--------------------: | :-: |
-| v1   | :heavy_check_mark: | TBD | TBD | TBD | TBD |
+| develop  | Unstable | - | - | - | - |
+| v1  | :heavy_check_mark: | 2021-02-02 | 2021-06-01 | - | 2022-12-02 |
+| v2  | :construction: | 2021-06-01 | 2021-12-01 | 2022-06-01 | 2023-06-01 |
 
-You can view the Status Key Map [here](./SUPPORTED_VERSIONS.md#status-key-map).
+You can view the Status Key Map and software support model [here][support].
 
 ## Contributing
 
@@ -127,6 +129,7 @@ Found a bug? Having an issue with this app? [Open a new issue][issues] here.
 [mysql]: https://www.mysql.com/
 [mariadb]: https://mariadb.org/
 [nodejs]: https://nodejs.com
+[support]: ./SUPPORTED_VERSIONS.md
 [contrib]: ./CONTRIBUTING.md
 [branching]: ./docs/Branching_Model.md
 [issues]: https://github.com/davidsaulrodriguez/employee-management-system/issues

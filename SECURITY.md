@@ -7,7 +7,7 @@ If you believe you have found a security vulnerability in any of my repositories
 
 **Please do not report security vulnerabilities through public GitHub issues.** Instead, please
 report them to the Security Response Center at [security@bsdadm.com](mailto:security@bsdadm.com).
-If possible, encrypt your message with my PGP key; please download it from [here](#).
+If possible, encrypt your message with my PGP key; please download it from [here][gpgkey].
 
 You should receive a response within 24 hours. If for some reason you do not, please follow up via
 email to ensure we received your original message.
@@ -40,4 +40,5 @@ To report a security vulnerability please send an email to [security@bsdadm.com]
 Security Vulnerabilities are checked for every day and responded to with an update on its status within 48 hours.
 
 [supported]: ./SUPPORTED_VERSIONS.md
+[gpgkey]: https://bsddadm.com/pubkey.asc
 [cvd]: ./docs/Coordinated_Vulnerability_Disclosure.md

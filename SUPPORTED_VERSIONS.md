@@ -4,15 +4,18 @@ Below is a list of the currently supported versions of this software. You can vi
 
 | Release | Status            | Initial Release | Active LTS Start | Maintenance LTS Start | End of Life |
 | :-----: | :----------------: | :-------------: | :------------------: | :--------------------: | :-: |
-| v1  | :heavy_check_mark: | TBD | TBD | TBD | TBD |
+| develop  | Unstable | - | - | - | - |
+| v1  | :heavy_check_mark: | 2021-02-02 | 2021-06-01 | - | 2022-12-02 |
+| v2  | :construction: | 2021-06-01 | 2021-12-01 | 2022-06-01 | 2023-06-01 |
 
 ## Status Key Map
 
 | Mark | Meaning | Definition |
 | :--: | :-----: | :---- |
-| :heavy_check_mark: | Current | A release that is being actively supported. Reported bugs and security issues are fixed and regular point releases are made. |
+| :heavy_check_mark: | Current | The lastest release that is being actively supported. Reported bugs and security issues are fixed and regular point releases are made. |
 | :purple_heart: | Active LTS | A Long Term Support release that is stable and guarenteed to not have any breaking changes. Reported bugs and security issues are fixed and regular patch releases are made for 6 months. |
 | :wrench: |  Maintenance LTS | A Long Term Support release that is stable and guarenteed to not have any breaking changes. Only critical bug and security fixes will be patched for a total of 12 months after an Active LTS is moved to this status. |
+| :construction: | Pending | A release that is currently under active development. This release can be found under the `develop` branch and is considered to be unstable. |
 | :x: | End of Life | A release that is no longer supported. Users of this release should upgrade as soon as possible, as they may be exposed to unpatched security vulnerabilities. |
 
 ---

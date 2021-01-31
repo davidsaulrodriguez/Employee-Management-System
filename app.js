@@ -34,7 +34,7 @@ db.connect((err) => {
     ███████╗██║ ╚═╝ ██║███████║
     ╚══════╝╚═╝     ╚═╝╚══════╝
     Employee Management System
-         version: v0.4.0
+         version: v0.5.0
 
 Copyright © 2021 David Saul Rodriguez
     Copyright © 2021 bsdadm.com
@@ -89,20 +89,46 @@ const runPrompt = () => {
 }
 
 const viewEmployees = () => {
-  // Magic goes here!
-  console.log('View Employees option was chosen.');
+  db.query(
+    `SELECT employee.id AS "ID", employee.first_name AS "First Name", employee.last_name AS "Last Name", role.title AS "Role", department.name AS "Department", role.salary AS "Salary", CONCAT(e.first_name, " ", e.last_name) AS "Manager"
+    FROM employee
+    INNER JOIN role ON employee.role_id = role.id
+    INNER JOIN department ON role.department_id = department.id
+    LEFT JOIN employee AS e ON employee.manager_id = e.id
+    ORDER BY employee.id`,
+  (err, rows) => {
+    console.log('\n');
+    console.log(table.getTable(rows));
+  }
+);
   runPrompt();
 }
 
 const viewDepartments = () => {
-  // Magic goes here!
-  console.log('View Departments option was chosen.');
+  db.query(
+    `SELECT id AS "ID", name AS "Department Name", 
+    FROM department`,
+    (err, rows) => {
+      if (err) throw err;
+      console.log('\n');
+      console.log(table.getTable(rows));
+    }
+  )
   runPrompt();
 }
 
 const viewRoles = () => {
-  // Magic goes here!
-  console.log('View Roles option was chosen.');
+  db.query(
+    `SELECT role.id AS "ID", title AS "Role Title", salary AS "Salary"
+    FROM role
+    RIGHT JOIN department ON role.department_id = department.id
+    ORDER BY role.id`,
+    (err, rows) => {
+      if (err) throw err;
+      console.log('\n');
+      console.log(table.getTable(rows));
+    }
+  )
   runPrompt();
 }
 
