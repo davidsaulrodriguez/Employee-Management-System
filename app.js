@@ -34,7 +34,7 @@ db.connect((err) => {
     ███████╗██║ ╚═╝ ██║███████║
     ╚══════╝╚═╝     ╚═╝╚══════╝
     Employee Management System
-         version: v0.5.0
+         version: v0.5.1
 
 Copyright © 2021 David Saul Rodriguez
     Copyright © 2021 bsdadm.com
@@ -106,7 +106,7 @@ const viewEmployees = () => {
 
 const viewDepartments = () => {
   db.query(
-    `SELECT id AS "ID", name AS "Department Name", 
+    `SELECT id AS "ID", name AS "Department Name"
     FROM department`,
     (err, rows) => {
       if (err) throw err;
