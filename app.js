@@ -162,12 +162,30 @@ const addEmployee = async () => {
   let question = [{
       type: "input",
       message: "Employee First Name: ",
-      name: "firstName"
+      name: "firstName",
+      validate: (value) => {
+        let pass = value.match(
+          /^([a-zA-Z]{2,30})$/
+        );
+        if (pass) {
+          return true;
+        }
+        return 'First name cannot be blank or more than 30 characters.';
+      }
     },
     {
       type: "input",
       message: "Employee Last Name: ",
-      name: "lastName"
+      name: "lastName",
+      validate: (value) => {
+        let pass = value.match(
+          /^([a-zA-Z]{2,30})$/
+        );
+        if (pass) {
+          return true;
+        }
+        return 'Last name cannot be blank or more than 30 characters.';
+      }
     },
     {
       type: "list",
