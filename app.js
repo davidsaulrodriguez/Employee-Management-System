@@ -34,7 +34,7 @@ db.connect((err) => {
     ███████╗██║ ╚═╝ ██║███████║
     ╚══════╝╚═╝     ╚═╝╚══════╝
     Employee Management System
-         version: v0.9.1
+         version: v0.9.5
 
 Copyright © 2021 David Saul Rodriguez
     Copyright © 2021 bsdadm.com
@@ -133,10 +133,108 @@ const viewRoles = () => {
 }
 
 
-const addEmployee = () => {
-  // Magic goes here!
-  console.log('Add Employee option was chosen.');
-  runPrompt();
+const addEmployee = async () => {
+  let roleQuery;
+  let managerQuery;
+  try {
+    roleQuery = await querySync(db, "SELECT id, title FROM role ORDER BY title", []);
+    managerQuery = await querySync(db, "SELECT id, CONCAT(first_name, ' ', last_name) as name FROM employee ORDER BY name", []);
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+
+  const roles = roleQuery.map(elem => elem.title); // make array of strings which are the titles of the roles
+  const managers = managerQuery.map(element => element.name);
+
+  // check that there are roles and departments first
+  if (managers.length == 0) {
+    console.log("Please Insert a department first");
+    runPrompt();
+    return;
+  } else if (roles.length == 0) {
+    console.log("Please Insert a role first");
+    runPrompt();
+    return;
+  }
+  managers.unshift("None");
+
+  let question = [{
+      type: "input",
+      message: "Employee First Name: ",
+      name: "firstName",
+      validate: (value) => {
+        let pass = value.match(
+          /^([a-zA-Z]{2,30})$/
+        );
+        if (pass) {
+          return true;
+        }
+        return 'First name cannot be blank or more than 30 characters.';
+      }
+    },
+    {
+      type: "input",
+      message: "Employee Last Name: ",
+      name: "lastName",
+      validate: (value) => {
+        let pass = value.match(
+          /^([a-zA-Z]{2,30})$/
+        );
+        if (pass) {
+          return true;
+        }
+        return 'Last name cannot be blank or more than 30 characters.';
+      }
+    },
+    {
+      type: "list",
+      message: "Choose Role: ",
+      choices: roles,
+      name: "role"
+    },
+    {
+      type: "list",
+      message: "Choose Manager: ",
+      choices: managers,
+      name: "manager"
+    }
+
+  ]
+  const answer = await inquirer.prompt(question);
+  let role_id = roleQuery.filter(elem => elem.title === answer.role)[0].id;
+  let manager_id;
+  if (answer.manager !== "None") {
+    manager_id = managerQuery.filter(elem => elem.name === answer.manager)[0].id;
+  }
+
+  let sql;
+  let placeholder;
+  if (answer.manager == "None") {
+    sql = "INSERT INTO employee SET ?";
+    placeholder = {
+      first_name: answer.firstName,
+      last_name: answer.lastName,
+      role_id: role_id,
+    };
+  } else {
+    sql = "INSERT INTO employee SET ?";
+    placeholder = {
+      first_name: answer.firstName,
+      last_name: answer.lastName,
+      role_id: role_id,
+      manager_id: manager_id
+    };
+  }
+
+  db.query(sql, placeholder, (err, res, fields) => {
+    if (err) {
+      console.log("\nError: " + err.message);
+      return;
+    }
+    console.log(`${answer.firstName} ${answer.lastName} added to Employees`);
+    runPrompt();
+  })
 }
 
 const addRole = async () => {
