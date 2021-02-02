@@ -34,7 +34,7 @@ db.connect((err) => {
     ███████╗██║ ╚═╝ ██║███████║
     ╚══════╝╚═╝     ╚═╝╚══════╝
     Employee Management System
-         version: v0.9.5
+         version: v1.0.0
 
 Copyright © 2021 David Saul Rodriguez
     Copyright © 2021 bsdadm.com
