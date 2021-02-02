@@ -34,7 +34,7 @@ db.connect((err) => {
     ███████╗██║ ╚═╝ ██║███████║
     ╚══════╝╚═╝     ╚═╝╚══════╝
     Employee Management System
-         version: v0.5.1
+         version: v0.9.0
 
 Copyright © 2021 David Saul Rodriguez
     Copyright © 2021 bsdadm.com
@@ -52,7 +52,7 @@ const runPrompt = () => {
         case 'View Employees':
           viewEmployees();
           break;
-        
+
         case 'View Departments':
           viewDepartments();
           break;
@@ -68,7 +68,7 @@ const runPrompt = () => {
         case 'Add Department':
           addDepartment();
           break;
-        
+
         case 'Add Roles':
           addRole();
           break;
@@ -96,11 +96,11 @@ const viewEmployees = () => {
     INNER JOIN department ON role.department_id = department.id
     LEFT JOIN employee AS e ON employee.manager_id = e.id
     ORDER BY employee.id`,
-  (err, rows) => {
-    console.log('\n');
-    console.log(table.getTable(rows));
-  }
-);
+    (err, rows) => {
+      console.log('\n');
+      console.log(table.getTable(rows));
+    }
+  );
   runPrompt();
 }
 
@@ -139,13 +139,55 @@ const addEmployee = () => {
   runPrompt();
 }
 
-const addDepartment = () => {
-  // Magic goes here!
-  console.log('Add Department option was chosen.');
-  runPrompt();
+const addRole = async () => {
+  let depQuery;
+  let depArray;
+  let answer;
+  try {
+    depQuery = await querySync(db, "SELECT id, name FROM department", []);
+
+    if (depQuery.length == 0) {
+      console.log("Please add a department first");
+      startPrompt();
+      return;
+    }
+    depArray = depQuery.map(elem => elem.name); // array of department names
+    console.log(depQuery);
+    answer = await inquirer.prompt([{
+        type: "input",
+        message: "What is the name of the Role? ",
+        name: "role"
+      },
+      {
+        type: "input",
+        message: "Salary: ",
+        name: "salary",
+        validate: function (value) {
+          if (isNaN(parseInt(value))) return "Please input a number";
+          return true;
+        }
+      },
+      {
+        type: "list",
+        message: "What Department is this role under? ",
+        choices: depArray,
+        name: "department"
+      }
+    ]);
+  } catch (err) {
+    throw err;
+  }
+
+  const departmentID = depQuery.filter(elem => elem.name === answer.department)[0].id;
+  const sql = "INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)"
+  db.query(sql, [answer.role, answer.salary, departmentID], (error, result) => {
+    if (error) throw error;
+    console.log(`${answer.role} added to roles`);
+    runPrompt();
+  })
 }
 
-const addRole = () => {
+const addDepartment = () => {
   // Magic goes here!
   console.log('Add Role option was chosen.');
   runPrompt();
@@ -155,6 +197,15 @@ const updateEmployeeRole = () => {
   // Magic goes here!
   console.log('Update Employee Role option was chosen.');
   runPrompt();
+}
+
+const querySync = (db, sql, args) => {
+  return new Promise((resolve, reject) => {
+    db.query(sql, args, (error, results) => {
+      if (error) reject(error);
+      resolve(results);
+    });
+  })
 }
 
 // Check to see if the user truly wants to quit the app
