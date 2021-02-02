@@ -174,6 +174,7 @@ const addRole = async () => {
       }
     ]);
   } catch (err) {
+    console.log(err);
     throw err;
   }
 
@@ -198,9 +199,9 @@ const updateEmployeeRole = () => {
   runPrompt();
 }
 
-const querySync = (db, sql, args) => {
+const querySync = (connection, sql, args) => {
   return new Promise((resolve, reject) => {
-    db.query(sql, args, (error, results) => {
+    connection.query(sql, args, (error, results) => {
       if (error) reject(error);
       resolve(results);
     });
