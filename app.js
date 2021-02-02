@@ -196,10 +196,35 @@ const addRole = async () => {
   })
 }
 
-const addDepartment = () => {
-  // Magic goes here!
-  console.log('Add Role option was chosen.');
-  runPrompt();
+const addDepartment = async () => {
+  let question = [{
+    type: "input",
+    message: "What is the name of the new Department? ",
+    name: "depName",
+    validate: (value) => {
+      let pass = value.match(
+        /^([a-zA-Z ]{2,30})$/
+      );
+      if (pass) {
+        return true;
+      }
+      return 'Department name cannot be blank or more than 30 characters.';
+    }
+  }]
+  const answer = await inquirer.prompt(question);
+
+  const sql = "INSERT INTO department SET ?";
+  const placeholder = {
+    name: answer.depName
+  };
+  db.query(sql, placeholder, (err, res, fields) => {
+    if (err) {
+      console.log("\nError: " + err.message);
+      return;
+    }
+    console.log(`${answer.depName} added to departments`);
+    runPrompt();
+  })
 }
 
 const updateEmployeeRole = () => {
