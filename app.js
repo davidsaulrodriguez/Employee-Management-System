@@ -152,7 +152,6 @@ const addRole = async () => {
       return;
     }
     depArray = depQuery.map(elem => elem.name); // array of department names
-    console.log(depQuery);
     answer = await inquirer.prompt([{
         type: "input",
         message: "What is the name of the Role? ",
