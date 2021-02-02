@@ -163,7 +163,7 @@ const addRole = async () => {
           if (pass) {
             return true;
           }
-          return 'Department name cannot be blank or more than 30 characters.';
+          return 'Role name cannot be blank or more than 30 characters.';
         }
       },
       {
