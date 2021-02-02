@@ -326,12 +326,12 @@ const addDepartment = async () => {
 }
 
 const updateEmployeeRole = async () => {
-  let empQuery = [];
+  let empQuery;
   let empArray;
   let answer;
   try {
-    let empQuery = await querySync(db, "SELECT id, CONCAT(first_name, ' ', last_name) as name FROM employee", []);
-    let roleQuery = await querySync(db, "SELECT id, title FROM role", []);
+    empQuery = await querySync(db, "SELECT id, CONCAT(first_name, ' ', last_name) as name FROM employee", []);
+    roleQuery = await querySync(db, "SELECT id, title FROM role", []);
     if (roleQuery.length == 0) {
       console.log("Please Insert roles or departments first");
       runPrompt();
