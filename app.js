@@ -326,7 +326,7 @@ const addDepartment = async () => {
 }
 
 const updateEmployeeRole = async () => {
-  let empQuery;
+  let empQuery = [];
   let empArray;
   let answer;
   try {
@@ -338,8 +338,7 @@ const updateEmployeeRole = async () => {
       return;
     }
     empArray = empQuery.map(elem => elem.name);
-    answer = await inquirer.prompt([
-      {
+    answer = await inquirer.prompt([{
         type: "list",
         message: "Choose Employee To Update Role: ",
         name: "name",
@@ -352,36 +351,34 @@ const updateEmployeeRole = async () => {
         choices: roleQuery.map(elem => elem.title)
       }
     ]);
-  } catch(err) {
-    console.log(err);
-    throw err;
-  }
-  
-  const employeeID = empQuery.filter(elem => elem.name === answer.name);
-  const roleID = roleQuery.filter(elem => elem.title === answer.role)[0].id
-  // if there are more than one employee with same name, work some magic...
-  if (employeeID.length > 1) { 
-    const answers = await inquirer.prompt([
-      {
+
+    const employeeID = empQuery.filter(elem => elem.name === answer.name);
+    const roleID = roleQuery.filter(elem => elem.title === answer.role)[0].id;
+    // if there are more than one employee with same name, work some magic...
+    if (employeeID.length > 1) {
+      const answers = await inquirer.prompt([{
         type: "list",
         message: "Choose id of Employee there was more than one: ",
         name: "id",
         choices: employeeID.map(elem => elem.id)
-      }
-    ]);
-    db.query("UPDATE employee SET role_id = ? WHERE id = ?", [roleID, answers.id], (error, result) => {
-      if (error) throw error;
-      console.log(`Employee role updated successfully`);
-      runPrompt();
-    })
+      }]);
+      db.query("UPDATE employee SET role_id = ? WHERE id = ?", [roleID, answers.id], (error, result) => {
+        if (error) throw error;
+        console.log(`Employee role updated successfully`);
+        runPrompt();
+      })
 
-  } else {
-    db.query("UPDATE employee SET role_id = ? WHERE id = ?", [roleID, employeeID[0].id], (error, result) => {
-      if (error) throw error;
-      console.log(`Employee Role updated successfully`);
-      runPrompt();
-    })
-  } 
+    } else {
+      db.query("UPDATE employee SET role_id = ? WHERE id = ?", [roleID, employeeID[0].id], (error, result) => {
+        if (error) throw error;
+        console.log(`Employee Role updated successfully`);
+        runPrompt();
+      })
+    }
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 const querySync = (connection, sql, args) => {
