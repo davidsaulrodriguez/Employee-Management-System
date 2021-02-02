@@ -325,10 +325,62 @@ const addDepartment = async () => {
   })
 }
 
-const updateEmployeeRole = () => {
-  // Magic goes here!
-  console.log('Update Employee Role option was chosen.');
-  runPrompt();
+const updateEmployeeRole = async () => {
+  let empQuery;
+  let empArray;
+  let answer;
+  try {
+    empQuery = await querySync(db, "SELECT id, CONCAT(first_name, ' ', last_name) as name FROM employee", []);
+    roleQuery = await querySync(db, "SELECT id, title FROM role", []);
+    if (roleQuery.length == 0) {
+      console.log("Please Insert roles or departments first");
+      runPrompt();
+      return;
+    }
+    empArray = empQuery.map(elem => elem.name);
+    answer = await inquirer.prompt([
+      {
+        type: "list",
+        message: "Choose Employee To Update Role: ",
+        name: "name",
+        choices: empArray
+      },
+      {
+        type: "list",
+        message: "Role: ",
+        name: "role",
+        choices: roleQuery.map(elem => elem.title)
+      }
+    ]);
+  } catch(err) {
+    throw err;
+  }
+  
+  const employeeID = empQuery.filter(elem => elem.name === answer.name);
+  const roleID = roleQuery.filter(elem => elem.title === answer.role)[0].id
+  // if there are more than one employee with same name, work some magic...
+  if (employeeID.length > 1) { 
+    const answers = await inquirer.prompt([
+      {
+        type: "list",
+        message: "Choose id of Employee there was more than one: ",
+        name: "id",
+        choices: employeeID.map(elem => elem.id)
+      }
+    ]);
+    db.query("UPDATE employee SET role_id = ? WHERE id = ?", [roleID, answers.id], (error, result) => {
+      if (error) throw error;
+      console.log(`Employee role updated successfully`);
+      runPrompt();
+    })
+
+  } else {
+    db.query("UPDATE employee SET role_id = ? WHERE id = ?", [roleID, employeeID[0].id], (error, result) => {
+      if (error) throw error;
+      console.log(`Employee Role updated successfully`);
+      runPrompt();
+    })
+  } 
 }
 
 const querySync = (connection, sql, args) => {
