@@ -34,7 +34,7 @@ db.connect((err) => {
     ███████╗██║ ╚═╝ ██║███████║
     ╚══════╝╚═╝     ╚═╝╚══════╝
     Employee Management System
-         version: v0.9.0
+         version: v0.9.1
 
 Copyright © 2021 David Saul Rodriguez
     Copyright © 2021 bsdadm.com
@@ -148,14 +148,23 @@ const addRole = async () => {
 
     if (depQuery.length == 0) {
       console.log("Please add a department first");
-      startPrompt();
+      runPrompt();
       return;
     }
     depArray = depQuery.map(elem => elem.name); // array of department names
     answer = await inquirer.prompt([{
         type: "input",
         message: "What is the name of the Role? ",
-        name: "role"
+        name: "role",
+        validate: (value) => {
+          let pass = value.match(
+            /^([a-zA-Z ]{2,30})$/
+          );
+          if (pass) {
+            return true;
+          }
+          return 'Role name cannot be blank or more than 30 characters.';
+        }
       },
       {
         type: "input",
@@ -187,10 +196,35 @@ const addRole = async () => {
   })
 }
 
-const addDepartment = () => {
-  // Magic goes here!
-  console.log('Add Role option was chosen.');
-  runPrompt();
+const addDepartment = async () => {
+  let question = [{
+    type: "input",
+    message: "What is the name of the new Department? ",
+    name: "depName",
+    validate: (value) => {
+      let pass = value.match(
+        /^([a-zA-Z ]{2,30})$/
+      );
+      if (pass) {
+        return true;
+      }
+      return 'Department name cannot be blank or more than 30 characters.';
+    }
+  }]
+  const answer = await inquirer.prompt(question);
+
+  const sql = "INSERT INTO department SET ?";
+  const placeholder = {
+    name: answer.depName
+  };
+  db.query(sql, placeholder, (err, res, fields) => {
+    if (err) {
+      console.log("\nError: " + err.message);
+      return;
+    }
+    console.log(`${answer.depName} added to departments`);
+    runPrompt();
+  })
 }
 
 const updateEmployeeRole = () => {
