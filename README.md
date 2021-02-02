@@ -34,6 +34,20 @@
 
 At the moment the **Employee Management System** keeps track of Employees, their Roles and the Departments they work in.
 
+The 1.0.0 release will only support the minimum requirements for the homework.
+
+- Functional application.
+  
+- GitHub repository with a unique name and a README describing the project.
+  
+- The command-line application should allow users to:
+  
+  - Add departments, roles, employees
+    
+  - View departments, roles, employees
+    
+  - Update employee roles
+
 ## Screenshots
 
 **Coming Soon**
