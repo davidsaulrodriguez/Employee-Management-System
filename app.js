@@ -148,7 +148,7 @@ const addRole = async () => {
 
     if (depQuery.length == 0) {
       console.log("Please add a department first");
-      startPrompt();
+      runPrompt();
       return;
     }
     depArray = depQuery.map(elem => elem.name); // array of department names
