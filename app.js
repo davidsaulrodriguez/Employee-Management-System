@@ -155,7 +155,16 @@ const addRole = async () => {
     answer = await inquirer.prompt([{
         type: "input",
         message: "What is the name of the Role? ",
-        name: "role"
+        name: "role",
+        validate: (value) => {
+          let pass = value.match(
+            /^([a-zA-Z ]{2,30})$/
+          );
+          if (pass) {
+            return true;
+          }
+          return 'Department name cannot be blank or more than 30 characters.';
+        }
       },
       {
         type: "input",
